@@ -1,0 +1,67 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="https://spacemaven-packages.github.io/schemas/ArtifactUsageInformation.xsd"
+        elementFormDefault="qualified"
+        attributeFormDefault="qualified"
+        xmlns:this="https://spacemaven-packages.github.io/schemas/ArtifactUsageInformation.xsd">
+    <complexType name="Definition">
+        <sequence>
+            <element name="CompileDefinitions" minOccurs="0" maxOccurs="unbounded">
+                <complexType>
+                    <sequence maxOccurs="unbounded">
+                        <element name="AddCompileDefinition">
+                            <complexType>
+                                <sequence>
+                                    <element name="Name" type="string"/>
+                                    <element name="Value" type="string" minOccurs="0"/>
+                                </sequence>
+                            </complexType>
+                        </element>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="LinkLibraries" minOccurs="0" maxOccurs="unbounded">
+                <complexType>
+                    <sequence maxOccurs="unbounded">
+                        <element name="PreExistingLibrary" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="LinkFrameworks" minOccurs="0" maxOccurs="unbounded">
+                <complexType>
+                    <sequence maxOccurs="unbounded">
+                        <element name="PreExistingFramework" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </sequence>
+    </complexType>
+
+    <simpleType name="Platform">
+        <restriction base="string">
+            <enumeration value="linux_x64"/>
+            <enumeration value="macos_x64"/>
+            <enumeration value="macos_arm64"/>
+            <enumeration value="windows_x64"/>
+        </restriction>
+    </simpleType>
+
+    <element name="Definition">
+        <complexType>
+            <sequence>
+                <element name="All" type="this:Definition" minOccurs="0"/>
+
+                <element name="Platform" minOccurs="0" maxOccurs="unbounded">
+                    <complexType>
+                        <complexContent>
+                            <extension base="this:Definition">
+                                <attribute name="OnlyPlatforms" type="string" use="required"/>
+                            </extension>
+                        </complexContent>
+                    </complexType>
+                </element>
+            </sequence>
+        </complexType>
+    </element>
+</schema>

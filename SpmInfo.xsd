@@ -1,0 +1,12 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="https://spacemaven-packages.github.io/schemas/SpmInfo.xsd"
+        elementFormDefault="qualified"
+        attributeFormDefault="qualified">
+    <element name="Declare">
+        <complexType>
+            <sequence>
+                <any namespace="##other" processContents="lax" maxOccurs="unbounded" minOccurs="0"/>
+            </sequence>
+        </complexType>
+    </element>
+</schema>
